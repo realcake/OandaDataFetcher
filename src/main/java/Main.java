@@ -23,6 +23,9 @@ public class Main {
         String user = "user";
         String password = "password";
 
+        String instrument = "EUR_USD"; //currency pair to use (can be any security from Oanda)
+        String granularity = "M1"; //Granularity of data to fetch
+
 
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -54,7 +57,7 @@ public class Main {
                 end = start.plusDays(3);
 
 
-                DataRequest request = new DataRequest("EUR_USD",start.toEpochSecond(ZoneOffset.ofHours(-5)),end.toEpochSecond(ZoneOffset.ofHours(-5)),"M1");
+                DataRequest request = new DataRequest(instrument,start.toEpochSecond(ZoneOffset.ofHours(-5)),end.toEpochSecond(ZoneOffset.ofHours(-5)),granularity);
                 try {
                     List<Rate> rates =  request.makeRequest();
                     for(Rate rate: rates) {
